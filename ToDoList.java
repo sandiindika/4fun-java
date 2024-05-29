@@ -14,26 +14,26 @@ public class ToDoList {
         boolean running = true;
         while (running) {
             System.out.println("\n==== To-Do List Manager ====");
-            System.out.println("1. Tambahkan tugas");
-            System.out.println("2. Hapus tugas");
-            System.out.println("3. Lihat tugas");
-            System.out.println("4. Keluar");
+            System.out.println("|1.| Tambahkan tugas       |");
+            System.out.println("|2.| Hapus tugas           |");
+            System.out.println("|3.| Lihat tugas           |");
+            System.out.println("|4.| Keluar                |");
+            System.out.println("============================");
 
             System.out.print("\nMasukkan pilihanmu: ");
             int choice = Integer.parseInt(scanner.nextLine());
 
+            System.out.println("\n============================");
+
             switch (choice) {
                 case 1:
-                    addTask(scanner);
-                    running = showMenu(scanner);
+                    running = addTask(scanner);
                     break;
                 case 2:
-                    removeTasks(scanner);
-                    running = showMenu(scanner);
+                    running = removeTasks(scanner);
                     break;
                 case 3:
                     viewTasks();
-                    running = showMenu(scanner);
                     break;
                 case 4:
                     running = false;
@@ -50,7 +50,7 @@ public class ToDoList {
     }
 
     private static boolean showMenu(Scanner scanner) {
-        System.out.print("\nKembali ke menu? (Y/N): ");
+        System.out.print("\nKembali ke menu utama? (Y/N): ");
         String choice = scanner.nextLine();
 
         if (choice.equalsIgnoreCase("y")) {
@@ -63,14 +63,25 @@ public class ToDoList {
         }
     }
 
-    private static void addTask(Scanner scanner) {
+    private static boolean addTask(Scanner scanner) {
         System.out.print("\nMasukkan tugas: ");
         String task = scanner.nextLine();
         tasks.add(task);
         System.out.println("Tugas berhasil ditambahkan.");
+        System.out.println("\nDaftar tugas:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+
+        boolean running = showMenu(scanner);
+        if (!running) {
+            running = addTask(scanner);
+        }
+
+        return true;
     }
 
-    private static void removeTasks(Scanner scanner) {
+    private static boolean removeTasks(Scanner scanner) {
         if (tasks.size() == 0) {
             System.out.println("\nTidak ada tugas yang dapat dihapus.");
         } else {
@@ -84,11 +95,23 @@ public class ToDoList {
 
             if (taskNumber >= 1 && taskNumber <= tasks.size()) {
                 tasks.remove(taskNumber - 1);
+                System.out.println("\nDaftar tugas:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
+                }
+
                 System.out.println("\nTugas berhasil dihapus.");
             } else {
                 System.out.println("\nTugas tidak ditemukan.");
             }
         }
+
+        boolean running = showMenu(scanner);
+        if (!running) {
+            running = removeTasks(scanner);
+        }
+
+        return true;
     }
 
     private static void viewTasks() {
@@ -121,7 +144,6 @@ public class ToDoList {
                 writer.write(task + System.lineSeparator());
             }
         } catch (IOException e) {
-            // TODO: handle exception
             System.out.println("\nTerjadi kesalahan saat menyimpan tugas.");
             e.printStackTrace();
         }
