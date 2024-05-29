@@ -5,7 +5,7 @@ public class ToDoList {
 
     private static final String FILE_NAME = "tasks.txt";
     private static ArrayList<String> tasks = new ArrayList<>();
-
+ 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
