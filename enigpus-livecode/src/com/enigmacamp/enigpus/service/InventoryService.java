@@ -6,4 +6,6 @@ public interface InventoryService {
     void searchBookByCode();
     void deleteBookByCode();
     void getAllBook();
+
+
 }

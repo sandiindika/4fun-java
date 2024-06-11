@@ -7,7 +7,9 @@ import java.util.Scanner;
 import static java.lang.System.out;
 
 public class InputValidator {
-    public static String isValidString(Scanner scanner, String string) {
+    static Scanner scanner = new Scanner(System.in);
+
+    public static String isValidString(String string) {
         while (true) {
             out.printf("%s: ", string);
             String input = scanner.nextLine();
@@ -25,7 +27,7 @@ public class InputValidator {
             return true;
         } catch (NumberFormatException e) {
             ViewUtil.divider(true);
-            out.println("Please enter a valid number");
+            out.println("| Invalid selection. Please try again!");
             ViewUtil.divider(false);
             return false;
         }
@@ -36,22 +38,22 @@ public class InputValidator {
         return title.split("").length >= 3 && title.length() <= 50;
     }
 
-
     public static boolean yearValidator(String input) {
         try {
             int year = Integer.parseInt(input);
             if (year < 1000 || year > 2024) {
                 ViewUtil.divider(true);
-                out.println("Please enter a valid year");
+                out.println("| Please enter a valid year");
                 ViewUtil.divider(false);
                 return false;
             }
             return true;
         } catch (NumberFormatException e) {
             ViewUtil.divider(true);
-            out.println("Please enter a valid year");
+            out.println("| Please enter a valid year");
             ViewUtil.divider(false);
             return false;
         }
     }
+
 }

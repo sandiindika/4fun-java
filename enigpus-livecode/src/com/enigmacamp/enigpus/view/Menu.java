@@ -14,9 +14,7 @@ public class Menu {
     InventoryService service = new InventoryServiceImpl();
 
     public void start() {
-        InventoryServiceImpl.getLastPoint();
-
-        int selected;
+                int selected;
 
         do {
             ViewUtil.divider(true);
@@ -27,9 +25,10 @@ public class Menu {
             out.println("2. Search Book");
             out.println("3. Delete Book");
             out.println("4. View All Book");
-            out.println("5. Exit");
+            out.println("5. Edit Book");
+            out.println("6. Exit");
 
-            String option = InputValidator.isValidString(scanner, "Enter menu options (1-6)");
+            String option = InputValidator.isValidString("Enter menu options (1-6)");
             if (InputValidator.isValidNumber(option)) {
                 selected = Integer.parseInt(option);
                 break;
@@ -42,36 +41,7 @@ public class Menu {
                 start();
                 break;
             case 2:
-                int selectedOption = 3;
-                do {
-                    ViewUtil.divider(true);
-                    out.println("|             Search Option            |");
-                    ViewUtil.divider(false);
-
-                    out.println("1. Search by Title");
-                    out.println("2. Search by Code");
-                    out.println("3. Cancel");
-
-                    String searchOption = InputValidator.isValidString(scanner, "Enter search options (1-3)");
-                    if (InputValidator.isValidNumber(searchOption)) {
-                        selectedOption = Integer.parseInt(searchOption);
-                    }
-
-                    if (selectedOption == 1) {
-                        service.searchBookByTitle();
-                        break;
-                    } else if (selectedOption == 2) {
-                        service.searchBookByCode();
-                        break;
-                    } else if (selectedOption == 3) {
-                        break;
-                    } else {
-                        ViewUtil.divider(true);
-                        out.println("Invalid option.");
-                        ViewUtil.divider(false);
-                    }
-                } while (true);
-
+                InventoryServiceImpl.searchBook();
                 start();
                 break;
             case 3:
@@ -83,10 +53,14 @@ public class Menu {
                 start();
                 break;
             case 5:
+                out.println("Edit Book");
+                start();
+                break;
+            case 6:
                 break;
             default:
                 ViewUtil.divider(true);
-                out.println("Invalid option");
+                out.println("| Invalid selection. Please try again!");
                 ViewUtil.divider(false);
                 start();
         }
